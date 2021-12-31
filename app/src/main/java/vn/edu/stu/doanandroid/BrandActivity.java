@@ -59,11 +59,11 @@ public class BrandActivity extends AppCompatActivity {
     }
 
     private boolean checkProductInBrand(ThuongHieu th) {
-//        for (int i = 0; i < dsSanPham.size(); i++) {
-//            if (dsSanPham.get(i).getPhanloai().equals(th.getIdth())) {
-//                return true;
-//            }
-//        }
+        for (int i = 0; i < dsSanPham.size(); i++) {
+            if (dsSanPham.get(i).getPhanloai().equals(th.getIdth())) {
+                return true;
+            }
+        }
         return false;
     }
 
