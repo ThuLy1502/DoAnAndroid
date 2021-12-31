@@ -136,7 +136,37 @@ public class BrandActivity extends AppCompatActivity {
         btnThemThuongHieu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String idTH = edtMaThuongHieu.getText().toString();
+                String tenTH = edtTenThuongHieu.getText().toString();
 
+                ThuongHieu th = new ThuongHieu(
+                        idTH + " ",
+                        tenTH
+                );
+                SQLiteDatabase database = openOrCreateDatabase(
+                        DB_NAME,
+                        MODE_PRIVATE,
+                        null
+                );
+                ContentValues row = new ContentValues();
+                row.put("idth", th.getIdth());
+                row.put("tenth", th.getTenth());
+
+                long insertedID = database.insert(
+                        "thuonghieu",
+                        null,
+                        row
+                );
+
+                Toast.makeText(
+                        BrandActivity.this,
+                        getString(R.string.toast_brand_add),
+                        Toast.LENGTH_LONG
+                ).show();
+                edtMaThuongHieu.setText("");
+                edtTenThuongHieu.setText("");
+                database.close();
+                docDsThuonghieuTuDb();
             }
         });
 
