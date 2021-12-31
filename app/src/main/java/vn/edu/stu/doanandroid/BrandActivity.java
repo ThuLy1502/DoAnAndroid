@@ -59,11 +59,11 @@ public class BrandActivity extends AppCompatActivity {
     }
 
     private boolean checkProductInBrand(ThuongHieu th) {
-        for (int i = 0; i < dsSanPham.size(); i++) {
-            if (dsSanPham.get(i).getPhanloai().equals(th.getIdth())) {
-                return true;
-            }
-        }
+//        for (int i = 0; i < dsSanPham.size(); i++) {
+//            if (dsSanPham.get(i).getPhanloai().equals(th.getIdth())) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
@@ -352,6 +352,47 @@ public class BrandActivity extends AppCompatActivity {
     }
 
     private void xoaThuongHieu(int position) {
-
+        ThuongHieu th = adapterThuongHieu.getItem(position);
+        if (checkProductInBrand(th)) {
+            Toast.makeText(
+                    BrandActivity.this,
+                    getString(R.string.toast_deleted),
+                    Toast.LENGTH_LONG
+            ).show();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(BrandActivity.this);
+            builder.setIcon(R.drawable.icons_notification);
+            builder.setTitle(getString(R.string.notification));
+            builder.setMessage(getString(R.string.message_brand));
+            builder.setPositiveButton(getString(R.string.agree), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ThuongHieu th = adapterThuongHieu.getItem(position);
+                    SQLiteDatabase database = openOrCreateDatabase(
+                            DB_NAME,
+                            MODE_PRIVATE,
+                            null
+                    );
+                    int deletedRowCount = database.delete(
+                            "thuonghieu",
+                            "idth=?",
+                            new String[]{th.getIdth()}
+                    );
+                    Toast.makeText(
+                            BrandActivity.this,
+                            getString(R.string.toast_delete_brand),
+                            Toast.LENGTH_LONG
+                    ).show();
+                    database.close();
+                }
+            });
+            builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 }
