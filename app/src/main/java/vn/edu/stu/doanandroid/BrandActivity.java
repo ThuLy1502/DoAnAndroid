@@ -384,6 +384,7 @@ public class BrandActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG
                     ).show();
                     database.close();
+                    docDsThuonghieuTuDb();
                 }
             });
             builder.setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
