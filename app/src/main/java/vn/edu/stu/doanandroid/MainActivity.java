@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(
                                 MainActivity.this,
-                                "Sai tài khoản",
+                                "Sai mật khẩu",
                                 Toast.LENGTH_SHORT
                         ).show();
                     }
